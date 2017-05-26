@@ -159,7 +159,7 @@ with open(output_path,'w') as output:
     print ('\"id\",\"tags\"',file=output)
     Y_pred_thresh = (Y_pred > thresh).astype('int')
     for index,labels in enumerate(Y_pred_thresh):
-        labels = [tag_list[i] for i,value in enumerate(labels) if value==1 ]
+        labels = [tags_list[i] for i,value in enumerate(labels) if value==1 ]
         labels_original = ' '.join(labels)
         print ('\"%d\",\"%s\"'%(index,labels_original),file=output)
 # }}}
