@@ -19,13 +19,13 @@ import re
 # }}}
 ID = 18
 # argv# {{{
-# test_path = sys.argv[2]
-test_path = '../data/test_data.csv'
-output_path = './submission_{}.csv'.format(ID)
+test_path      = sys.argv[1]
+output_path    = sys.argv[2]
+# test_path    = '../data/test_data.csv'
+# output_path  = './submission_{}.csv'.format(ID)
 
-weights_path = './weights_{}.h5'.format(ID)
-
-tag_path = './tag_list'
+weights_path   = './weights_{}.h5'.format(ID)
+tag_path       = './tag_list'
 tokenizer_path = './tokenizer.pickle'
 # }}}
 #   Util   #
