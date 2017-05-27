@@ -5,15 +5,15 @@ import xgboost as xgb
 from sklearn import preprocessing
 # }}}
 # parameters #
-ID = 17
+ID = 20
 nrounds = 1000
-patience = 50
+patience = 20
 xgb_params = {# {{{
     'objective': 'reg:linear',
 
     'eta': 0.05,
     'max_depth': 5,
-    'subsample': 0.5,
+    'subsample': 0.7,
 
     'colsample_bytree': 0.7,
     'eval_metric': 'rmse',
@@ -41,10 +41,19 @@ macro_cols = ["balance_trade", "balance_trade_growth", "eurrub", "average_provis
 macro = pd.read_csv(macro_path, parse_dates=['timestamp'], usecols=['timestamp'] + macro_cols)
 '''
 # }}}
+def choose_data(data):# {{{
+    drop_list = ['id', 'timestamp', 'max_floor', 'material', 'build_year', 'num_room', 'kitch_sq', 'state', 'culture_objects_top_25']
+            # 'culture_objects_top_25', 'cafe_sum_500_min_price_avg', 'cafe_sum_500_max_price_avg', 'cafe_avg_price_500']
+    for s in drop_list:
+        data.drop(s, axis=1, inplace=True)
+    return data
+train = choose_data(train)
+test  = choose_data(test)
+# }}}
 # split y_train# {{{
 y_train = train["price_doc"]
-x_train = train.drop(["id", "timestamp", "price_doc"], axis=1)
-x_test  = test.drop(["id", "timestamp"], axis=1)
+x_train = train.drop(["price_doc"], axis=1)
+x_test  = test
 # }}}
 # let labels be int# {{{
 for c in x_train.columns:
