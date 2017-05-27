@@ -5,7 +5,7 @@ import xgboost as xgb
 from sklearn import preprocessing
 # }}}
 # parameters #
-ID = 13
+ID = 14
 # argv# {{{
 train_path = './data/train.csv'
 test_path  = './data/test.csv'
@@ -18,11 +18,17 @@ output_path = './subm/submission_{}.csv'.format(ID)
 print('Will save subm.csv to: {}'.format(output_path))
 
 
-train = pd.read_csv(train_path)
-test  = pd.read_csv(test_path)
-macro = pd.read_csv(macro_path)
+train = pd.read_csv(train_path, parse_dates=['timestamp'])
+test  = pd.read_csv(test_path, parse_dates=['timestamp'])
 id_test = test.id
-# train.sample(3)
+
+
+'''
+macro_cols = ["balance_trade", "balance_trade_growth", "eurrub", "average_provision_of_build_contract",
+                "micex_rgbi_tr", "micex_cbi_tr", "deposits_rate", "mortgage_value", "mortgage_rate",
+                "income_per_cap", "rent_price_4+room_bus", "museum_visitis_per_100_cap", "apartment_build"]
+macro = pd.read_csv(macro_path, parse_dates=['timestamp'], usecols=['timestamp'] + macro_cols)
+'''
 
 
 y_train = train["price_doc"]
@@ -44,8 +50,7 @@ for c in x_test.columns:
 xgb_params = {
     'eta': 0.05,
     'max_depth': 5,
-    # 'subsample': 0.7,
-    'subsample': 1.0,
+    'subsample': 0.7,
     'colsample_bytree': 0.7,
     'objective': 'reg:linear',
     'eval_metric': 'rmse',
