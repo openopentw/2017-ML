@@ -20,13 +20,13 @@ movie_path  = './data/movies.csv'
 # Before Train #
 # load train data# {{{
 train_data = pd.read_csv(train_path).values
-x_train_data = train_data[:,:-1]
+x_train_data = train_data[:,1:-1]
 y_train_data = train_data[:,-1]
 # }}}
-# load test data# {{{
-x_test_data = pd.read_csv(test_path).values
-# }}}
 '''
+# load test data# {{{
+x_test_data = pd.read_csv(test_path).values[:,1:]
+# }}}
 # load user data# {{{
 user_data = pd.read_csv(user_path).values
 user_data[user_data == 'F'] = 0
