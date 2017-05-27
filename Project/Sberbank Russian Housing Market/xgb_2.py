@@ -5,9 +5,9 @@ import xgboost as xgb
 from sklearn import preprocessing
 # }}}
 # parameters #
-ID = 16
+ID = 17
 nrounds = 1000
-patience = 20
+patience = 50
 xgb_params = {# {{{
     'objective': 'reg:linear',
 
