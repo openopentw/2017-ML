@@ -15,6 +15,9 @@ output_path = './subm/submission_{}.csv'.format(ID)
 # }}}
 
 
+print('Will save subm.csv to: {}'.format(output_path))
+
+
 train = pd.read_csv(train_path)
 test  = pd.read_csv(test_path)
 macro = pd.read_csv(macro_path)
@@ -63,4 +66,5 @@ y_predict = model.predict(dtest)
 output = pd.DataFrame({'id': id_test, 'price_doc': y_predict})
 output.head()
 
+print('Saving subm.csv to: {}'.format(output_path))
 output.to_csv(output_path, index=False)
