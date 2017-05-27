@@ -5,7 +5,7 @@ import xgboost as xgb
 from sklearn import preprocessing
 # }}}
 # parameters #
-ID = 12
+ID = 13
 # argv# {{{
 train_path = './data/train.csv'
 test_path  = './data/test.csv'
@@ -19,7 +19,7 @@ train = pd.read_csv(train_path)
 test  = pd.read_csv(test_path)
 macro = pd.read_csv(macro_path)
 id_test = test.id
-train.sample(3)
+# train.sample(3)
 
 
 y_train = train["price_doc"]
@@ -41,7 +41,8 @@ for c in x_test.columns:
 xgb_params = {
     'eta': 0.05,
     'max_depth': 5,
-    'subsample': 0.7,
+    # 'subsample': 0.7,
+    'subsample': 1.0,
     'colsample_bytree': 0.7,
     'objective': 'reg:linear',
     'eval_metric': 'rmse',
