@@ -5,14 +5,15 @@ import xgboost as xgb
 from sklearn import preprocessing
 # }}}
 # parameters #
-ID = 15
+ID = 16
 nrounds = 1000
+patience = 20
 xgb_params = {# {{{
     'objective': 'reg:linear',
 
-    'eta': 0.1,
+    'eta': 0.05,
     'max_depth': 5,
-    'subsample': 0.7,
+    'subsample': 0.5,
 
     'colsample_bytree': 0.7,
     'eval_metric': 'rmse',
@@ -63,7 +64,7 @@ dtrain = xgb.DMatrix(x_train, y_train)
 dtest = xgb.DMatrix(x_test)
 # }}}
 
-cv_output = xgb.cv(xgb_params, dtrain, num_boost_round=nrounds, early_stopping_rounds=20, verbose_eval=50, show_stdv=False)
+cv_output = xgb.cv(xgb_params, dtrain, num_boost_round=nrounds, early_stopping_rounds=patience, verbose_eval=50, show_stdv=False)
 cv_output[['train-rmse-mean', 'test-rmse-mean']].plot()
 
 num_boost_rounds = len(cv_output)
