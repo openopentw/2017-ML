@@ -4,7 +4,7 @@ import pandas as pd
 import xgboost as xgb
 # }}}
 # parameters #
-ID = 25
+ID = 27
 nrounds = 1000
 patience = 20
 # argv# {{{
@@ -17,9 +17,9 @@ print('Will save subm.csv to: {}'.format(output_path))
 # }}}
 xgb_params = {
     'eta': 0.05,
-    'max_depth': 6,
-    'subsample': 0.7,
-    'colsample_bytree': 0.7,
+    'max_depth': 5,
+    'subsample': 0.6,
+    'colsample_bytree': 0.8,
     'objective': 'reg:linear',
     'eval_metric': 'rmse',
     'silent': 1
