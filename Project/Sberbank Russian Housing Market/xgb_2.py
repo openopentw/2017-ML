@@ -5,7 +5,7 @@ import xgboost as xgb
 from sklearn import preprocessing
 # }}}
 # parameters #
-ID = 20
+ID = 22
 nrounds = 1000
 patience = 20
 xgb_params = {# {{{
@@ -42,7 +42,8 @@ macro = pd.read_csv(macro_path, parse_dates=['timestamp'], usecols=['timestamp']
 '''
 # }}}
 def choose_data(data):# {{{
-    drop_list = ['id', 'timestamp', 'max_floor', 'material', 'build_year', 'num_room', 'kitch_sq', 'state', 'culture_objects_top_25']
+    drop_list = ['id']
+    # drop_list = ['id', 'max_floor', 'material', 'build_year', 'num_room', 'kitch_sq', 'state', 'culture_objects_top_25']
             # 'culture_objects_top_25', 'cafe_sum_500_min_price_avg', 'cafe_sum_500_max_price_avg', 'cafe_avg_price_500']
     for s in drop_list:
         data.drop(s, axis=1, inplace=True)
