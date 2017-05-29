@@ -1,6 +1,6 @@
 import numpy as np
 
-ID = 5
+ID = 6
 output_path = '../subm/vote_{}.csv'.format(ID)
 subm_list = [
     # '../subm/submission_12.csv',
@@ -9,7 +9,7 @@ subm_list = [
     # '../subm/submission_13.csv',
     # '../subm/submission_17.csv',
     # '../subm/submission_18.csv',
-    '../subm/sub_0.975.csv',
+    '../subm/sub.csv',
     '../other code/xgbsub/subm/xgbSub.csv',
 ]
 
