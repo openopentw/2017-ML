@@ -1,6 +1,6 @@
 import numpy as np
 
-ID = 4
+ID = 5
 output_path = '../subm/vote_{}.csv'.format(ID)
 subm_list = [
     # '../subm/submission_12.csv',
@@ -10,7 +10,7 @@ subm_list = [
     # '../subm/submission_17.csv',
     # '../subm/submission_18.csv',
     '../subm/sub_0.975.csv',
-    '../other code/xgbsub/subm/xgbSub_97.csv',
+    '../other code/xgbsub/subm/xgbSub.csv',
 ]
 
 subm = np.zeros((len(subm_list), 7662))
