@@ -24,9 +24,13 @@ movie_path  = './data/movies.csv'
 # }}}
 # Before Train #
 # load train data# {{{
-train_data = pd.read_csv(train_path).values
-x_train_data = train_data[:,1:-1]
-y_train_data = train_data[:,-1]
+train = pd.read_csv(train_path)
+userid = train['UserID'].unique()
+movieid = train['MovieID'].unique()
+matrix = np.zeros((userid.max(), movieid.max()), dtype=int)
+train = train[['UserID', 'MovieID', 'Rating']].values
+for data in train:
+    matrix[data[0]-1, data[1]-1] = data[2]
 # }}}
 '''
 # load test data# {{{
@@ -66,9 +70,10 @@ for i in range(len(movie_data)):
 '''
 
 # Keras #
+'''
 def generate_model():
-    model = Sequential()
 
-    model.add(Embedding(user.shape[0], 
+    user_embd = Embedding(user.shape[0], 100, trainable=True)
 
     return model
+'''
