@@ -1,16 +1,15 @@
 """
-@ author: b04902053
+@author: b04902053
 """
 
 use_device = 'GPU'  # CPU / GPU
 # Use CPU# {{{
 import os
-if use_device == 'CPU':
-    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
-    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-elif use_device == 'GPU':
-    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
+if use_device == 'GPU':
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+elif use_device == 'CPU':
+    os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # }}}
 # import# {{{
 import pandas as pd
@@ -23,7 +22,8 @@ from keras.layers.merge import Add, Dot, Concatenate
 # }}}
 # }}}
 # Parameter #
-ID = 2
+ID = 3
+split_num = 80000
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
@@ -37,21 +37,37 @@ movie_path  = './data/movies.csv'
 # load train data# {{{
 train = pd.read_csv(train_path)
 
-user_size = train['UserID'].unique().size + 1
-movie_size = train['MovieID'].unique().max() + 1
+user_size  = train['UserID'].unique().size
+movie_size = train['MovieID'].unique().max()
 
 train = train[['UserID', 'MovieID', 'Rating']].values
-user_id = train[:,0]
-# user_id = user_id.reshape(user_id.size, 1)
-movie_id = train[:,1]
-# movie_id = movie_id.reshape(movie_id.size, 1)
-rate = train[:,2]
-# rate = rate.reshape(rate.size, 1)
+user_train  = train[:,0]
+movie_train = train[:,1]
+rate_train  = train[:,2]
+# user_train  = user_train.reshape(user_train.size, 1)
+# movie_train = movie_train.reshape(movie_train.size, 1)
+# rate_train  = rate_train.reshape(rate.size, 1)
+# }}}
+# shuffle train# {{{
+np.random.seed(42)
+indices = np.arange(user_train.size)
+np.random.shuffle(indices)
+user_train  = user_train[indices]
+movie_train = movie_train[indices]
+rate_train  = rate_train[indices]
+# }}}
+# split vali# {{{
+user_vali  = user_train[-split_num:]
+movie_vali = movie_train[-split_num:]
+rate_vali  = rate_train[-split_num:]
+user_train  = user_train[:-split_num]
+movie_train = movie_train[:-split_num]
+rate_train  = rate_train[:-split_num]
 # }}}
 # load test data# {{{
 test = pd.read_csv(test_path).values[:,1:]
-test_user = test[:,0]
-test_movie = test[:,1]
+user_test  = test[:,0]
+movie_test = test[:,1]
 # }}}
 '''
 # load user data# {{{
@@ -90,14 +106,14 @@ for i in range(len(movie_data)):
 # Keras #
 def generate_model():# {{{
     user_input = Input(shape=[1])
-    user_vec = Embedding(user_size, 100)(user_input)
+    user_vec = Embedding(user_size + 1, 100)(user_input)
     user_vec = Flatten()(user_vec)
-    user_vec = Dropout(0.5)(user_vec)
+    user_vec = Dropout(0.3)(user_vec)
 
     movie_input = Input(shape=[1])
-    movie_vec = Embedding(movie_size, 100)(movie_input)
+    movie_vec = Embedding(movie_size + 1, 100)(movie_input)
     movie_vec = Flatten()(movie_vec)
-    movie_vec = Dropout(0.5)(movie_vec)
+    movie_vec = Dropout(0.3)(movie_vec)
 
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
 
@@ -111,13 +127,16 @@ model = generate_model()
 # }}}
 
 # model.fit([user_id, movie_id], y_matrix, validation_data=(X_val, Y_val), epochs=20, batch_size=batch_size, callbacks=[earlystopping,checkpoint])
-# model.fit([user_id, movie_id], y_matrix, epochs=20)
-model.fit([user_id, movie_id], rate, epochs=200, batch_size=2048)
-y_pred = model.predict([test_user, test_movie])
+# earlystopping = EarlyStopping(monitor='val_f1_score', patience=patience, verbose=1, mode='max')
+# checkpoint = ModelCheckpoint(filepath='best_weights{}.h5'.format(ID), verbose=1, save_best_only=True, save_weights_only=True, monitor='val_f1_score', mode='max')
+model.fit([user_train, movie_train], rate_train, epochs=100, batch_size=1024, validation_data=([user_vali, movie_vali], rate_vali))
+y_pred = model.predict([user_test, movie_test])
 
+# save to csv# {{{
 print('Saving submission to {}'.format(output_path))
 f = open(output_path, 'w')
 print('TestDataID,Rating', file=f)
 for i, pred_rate in enumerate(y_pred):
     print('{},{}'.format(i+1, np.round(pred_rate[0])), file=f)
 f.close()
+# }}}
