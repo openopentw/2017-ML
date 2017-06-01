@@ -24,11 +24,12 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 7
-SPLIT_NUM = 80000
+ID = 8
+print('ID = {}'.format(ID))
+# SPLIT_NUM = 80000
 EMBD_DIM = 100
-EPOCHS = 50
-PATIENCE = 5
+# EPOCHS = 50
+PATIENCE = 20
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
@@ -83,15 +84,16 @@ def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size, EMBD_DIM, embeddings_initializer='random_normal')(user_input)
     user_vec = Flatten()(user_vec)
-    user_vec = Dropout(0.5)(user_vec)
+    user_vec = Dropout(0.7)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size, EMBD_DIM, embeddings_initializer='random_normal')(movie_input)
     movie_vec = Flatten()(movie_vec)
-    movie_vec = Dropout(0.5)(movie_vec)
+    movie_vec = Dropout(0.7)(movie_vec)
 
     merge_vec = Concatenate()([user_vec, movie_vec])
     hidden = Dense(150, activation='elu')(merge_vec)
+    hidden = Dense(100, activation='elu')(hidden)
     hidden = Dense(100, activation='elu')(hidden)
     hidden = Dense(50, activation='elu')(hidden)
     output = Dense(1)(hidden)
@@ -105,7 +107,7 @@ model = generate_model()
 earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
 checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
 
-EPOCHS = 100
+EPOCHS = 300
 model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
 model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=1024, validation_split=0.1, callbacks=[earlystopping, checkpoint])
 # }}}
