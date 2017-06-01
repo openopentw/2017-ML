@@ -2,13 +2,13 @@
 @author: b04902053
 """
 
-use_device = 'GPU'  # CPU / GPU
-# Use CPU# {{{
+use_device = 'gpu'  # cpu / gpu
+# Use Device# {{{
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
-if use_device == 'GPU':
+if use_device == 'gpu':
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-elif use_device == 'CPU':
+elif use_device == 'cpu':
     os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # }}}
 # import# {{{
@@ -22,7 +22,7 @@ from keras.layers.merge import Add, Dot, Concatenate
 # }}}
 # }}}
 # Parameter #
-ID = 3
+ID = 4
 split_num = 80000
 # argv# {{{
 train_path  = './data/train.csv'
@@ -57,12 +57,13 @@ movie_train = movie_train[indices]
 rate_train  = rate_train[indices]
 # }}}
 # split vali# {{{
-user_vali  = user_train[-split_num:]
-movie_vali = movie_train[-split_num:]
-rate_vali  = rate_train[-split_num:]
-user_train  = user_train[:-split_num]
-movie_train = movie_train[:-split_num]
-rate_train  = rate_train[:-split_num]
+# user_vali  = user_train[-split_num:]
+# movie_vali = movie_train[-split_num:]
+# rate_vali  = rate_train[-split_num:]
+
+# user_train  = user_train[:-split_num]
+# movie_train = movie_train[:-split_num]
+# rate_train  = rate_train[:-split_num]
 # }}}
 # load test data# {{{
 test = pd.read_csv(test_path).values[:,1:]
@@ -108,12 +109,12 @@ def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size + 1, 100)(user_input)
     user_vec = Flatten()(user_vec)
-    user_vec = Dropout(0.3)(user_vec)
+    user_vec = Dropout(0.4)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size + 1, 100)(movie_input)
     movie_vec = Flatten()(movie_vec)
-    movie_vec = Dropout(0.3)(movie_vec)
+    movie_vec = Dropout(0.4)(movie_vec)
 
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
 
@@ -129,7 +130,8 @@ model = generate_model()
 # model.fit([user_id, movie_id], y_matrix, validation_data=(X_val, Y_val), epochs=20, batch_size=batch_size, callbacks=[earlystopping,checkpoint])
 # earlystopping = EarlyStopping(monitor='val_f1_score', patience=patience, verbose=1, mode='max')
 # checkpoint = ModelCheckpoint(filepath='best_weights{}.h5'.format(ID), verbose=1, save_best_only=True, save_weights_only=True, monitor='val_f1_score', mode='max')
-model.fit([user_train, movie_train], rate_train, epochs=100, batch_size=1024, validation_data=([user_vali, movie_vali], rate_vali))
+# model.fit([user_train, movie_train], rate_train, epochs=50, batch_size=1024, validation_data=([user_vali, movie_vali], rate_vali))
+model.fit([user_train, movie_train], rate_train, epochs=50, batch_size=1024)
 y_pred = model.predict([user_test, movie_test])
 
 # save to csv# {{{
