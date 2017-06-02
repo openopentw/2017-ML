@@ -15,17 +15,21 @@ elif use_device == 'cpu':
 import pandas as pd
 import numpy as np
 # keras# {{{
+import keras.backend as K
 from keras.models import Sequential, load_model
 from keras.models import Model
-from keras.layers import Input, Flatten, Embedding, Dropout, merge
+from keras.layers import Input, Flatten, Embedding, Dropout, Dense
 from keras.layers.merge import Add, Dot, Concatenate
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 5
-SPLIT_NUM = 80000
-EMBD_DIM = 100
-EPOCHS = 50
+ID = 10
+print('ID = {}'.format(ID))
+# SPLIT_NUM = 80000
+# EMBD_DIM = 100
+# EPOCHS = 50
+# PATIENCE = 20
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
@@ -34,6 +38,10 @@ print('Will save output to: {}'.format(output_path))
 
 user_path   = './data/users.csv'
 movie_path  = './data/movies.csv'
+
+weights_path = './weights/weights_{}.h5'.format(ID)
+model_path   = './model/{}.h5'.format(ID)
+print('Will save model to: {}'.format(model_path))
 # }}}
 # Before Train #
 # load train data# {{{
@@ -69,6 +77,10 @@ movie_test = test[:,1] - 1
 # }}}
 
 # Keras #
+def RMSE(y_true, y_pred):# {{{
+    return K.sqrt(K.mean(K.square(y_pred - y_true)))
+# }}}
+EMBD_DIM = 100
 def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size, EMBD_DIM)(user_input)
@@ -83,19 +95,26 @@ def generate_model():# {{{
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
 
     model = Model([user_input, movie_input], dot_vec)
-
     model.summary()
 
-    model.compile(loss='mse', optimizer='adam')
     return model
 model = generate_model()
 # }}}
+
 # fit & predict# {{{
-# earlystopping = EarlyStopping(monitor='val_f1_score', patience=patience, verbose=1, mode='max')
-# checkpoint = ModelCheckpoint(filepath='best_weights{}.h5'.format(ID), verbose=1, save_best_only=True, save_weights_only=True, monitor='val_f1_score', mode='max')
-# model.fit([user_train, movie_train], rate_train, epochs=50, batch_size=1024, validation_data=([user_vali, movie_vali], rate_vali))
-model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=1024)
+EPOCHS = 1000
+PATIENCE = 100
+earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
+checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
+
+model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
+model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=1024, validation_split=0.1, callbacks=[earlystopping, checkpoint])
+# }}}
+# load & predict & save# {{{
+model.load_weights(weights_path)
 y_pred = model.predict([user_test, movie_test])
+print('Saving model to: {}'.format(model_path))
+model.save(model_path)
 # }}}
 # save to csv# {{{
 print('Saving submission to {}'.format(output_path))
