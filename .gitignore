@@ -1,6 +1,10 @@
+# Vim temp file
+# .*un~
+
 # Word Markdown temp file
 ~$*.md
 ~WR*.tmp
+
 # Windows lnk
 *.lnk
 
