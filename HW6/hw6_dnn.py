@@ -24,7 +24,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 9
+ID = 12
 print('ID = {}'.format(ID))
 # SPLIT_NUM = 80000
 # EMBD_DIM = 100
@@ -113,7 +113,7 @@ earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, 
 checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
 
 model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
-model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=1024, validation_split=0.1, callbacks=[earlystopping, checkpoint])
+model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=10000, validation_split=0.1, callbacks=[earlystopping, checkpoint])
 # }}}
 # load & predict & save# {{{
 model.load_weights(weights_path)
