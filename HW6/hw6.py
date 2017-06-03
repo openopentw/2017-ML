@@ -25,11 +25,11 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 20
+ID = 21
 print('ID = {}'.format(ID))
-EPOCHS = 1500
+EPOCHS = 1000
+EMBD_DIM = 50
 # SPLIT_NUM = 80000
-# EMBD_DIM = 100
 # PATIENCE = 20
 # argv# {{{
 train_path  = './data/train.csv'
@@ -76,28 +76,29 @@ test = pd.read_csv(test_path)[['UserID', 'MovieID']].values
 user_test  = test[:,0] - 1
 movie_test = test[:,1] - 1
 # }}}
+NORM = False
 # normalize on rating# {{{
-mean = np.mean(rate_train)
-std  = np.std(rate_train)
-rate_train = (rate_train - mean) / std
+if NORM == True:
+    mean = np.mean(rate_train)
+    std  = np.std(rate_train)
+    rate_train = (rate_train - mean) / std
 # }}}
 
 # Keras #
 def RMSE(y_true, y_pred):# {{{
     return K.sqrt(K.mean(K.square(y_pred - y_true)))
 # }}}
-EMBD_DIM = 100
 def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size, EMBD_DIM)(user_input)
     user_vec = Flatten()(user_vec)
-    # user_vec = BatchNormalization()(user_vec)
+    user_vec = BatchNormalization()(user_vec)
     user_vec = Dropout(0.4)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size, EMBD_DIM)(movie_input)
     movie_vec = Flatten()(movie_vec)
-    # movie_vec = BatchNormalization()(movie_vec)
+    movie_vec = BatchNormalization()(movie_vec)
     movie_vec = Dropout(0.4)(movie_vec)
 
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
@@ -120,7 +121,8 @@ model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=10000
 # load & predict & save# {{{
 # model.load_weights(weights_path)
 y_pred = model.predict([user_test, movie_test])
-y_pred = y_pred * std + mean
+if NORM == True:
+    y_pred = y_pred * std + mean
 print('Saving model to: {}'.format(model_path))
 model.save(model_path)
 # }}}
