@@ -25,12 +25,16 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 22
+ID = 23
 print('ID = {}'.format(ID))
+
 EPOCHS = 1500
 EMBD_DIM = 100
-# SPLIT_NUM = 80000
-# PATIENCE = 20
+
+USER_NORM = True
+VALI = True
+if VALI == True:
+    PATIENCE = 100
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
@@ -63,7 +67,6 @@ test = pd.read_csv(test_path)[['UserID', 'MovieID']].values
 user_test  = test[:,0] - 1
 movie_test = test[:,1] - 1
 # }}}
-USER_NORM = True
 # normalize for each user on rating# {{{
 train = train.astype(float)
 if USER_NORM == True:
@@ -104,14 +107,19 @@ model = generate_model()
 # }}}
 
 # fit & load# {{{
-PATIENCE = 100
-earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
-checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
+if VALI == True:
+    earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
+    checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
 
 model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
-model.fit([train[:,0], train[:,1]], train[:,2], epochs=EPOCHS, batch_size=10000)
-# model.load_weights(weights_path)
+
+if VALI == True:
+    model.fit([train[:,0], train[:,1]], train[:,2], epochs=EPOCHS, batch_size=10000, validation_split=0.1, callbacks=[checkpoint, earlystopping])
+else:
+    model.fit([train[:,0], train[:,1]], train[:,2], epochs=EPOCHS, batch_size=10000)
+model.load_weights(weights_path)
 # }}}
+# predict & normalize# {{{
 y_pred = model.predict([user_test, movie_test])
 if USER_NORM == True:
     # y_pred = y_pred * std + mean
@@ -119,6 +127,7 @@ if USER_NORM == True:
         y_pred[user_test == i, 0] = y_pred[user_test == i, 0] * std[i] + mean[i]
         if i % 100 == 0:
             print(i, end=',')
+# }}}
 # save to h5 & csv# {{{
 print('Saving model to: {}'.format(model_path))
 model.save(model_path)
