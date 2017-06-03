@@ -21,6 +21,7 @@ HW6 的分數紀錄
 | 16 | `hw6`     | 再加大epoch num                                         | 1500      | 0.84747       | 0.9733   | 感覺是overfit了XD     |
 | 17 | `hw6`     | ADD `batch_normalization()` on `user_vec` & `movic_vec` | 1500      | **0.84388**   | 0.9685   |                       |
 | 18 | `hw6`     | normalize on rating                                     | 1000      | 0.84780       | 0.6568   |                       |
+| 19 | `hw6`     | do more 500 epochs on 18                                | 1500      | 0.84746       | 0.6549   | 好像不太算overfit @@  |
 
 ## 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
