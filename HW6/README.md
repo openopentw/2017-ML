@@ -12,6 +12,7 @@ HW6 的分數紀錄
 | 12 | `hw6_dnn` | `batch size`: 1024 → 10000                                                      | 0.86629       | 0.86896 | 0.8282   | **epoch num=360**<br> batch size改大之後就爛啦<br> 可能PATIENCE也要跟著調一下才會比較好@@ |
 | 13 | `hw6_dnn` | `batch size`: 10000 → 1024                                                      | 0.85327       | 0.85443 | 0.8150   | **epoch num=800**<br>再測一次10，看看epoch數是多少                                        |
 | 23 | `hw6`     | 跟22一樣，但是加了`validation set`                                              | 0.86395       | 0.84811 | 0.7021   | **epoch num=420**<br>看來這個方法行不通呢QQ                                               |
+| 24 | `hw6`     | dropout: 0.4 → 0.7                                                              |               | 0.85140 | 0.8533   | **epoch num=472**<br>結果變爛啦，dropout開太大了                                          |
 
 ## 沒有 validation set
 | ID | .py file  | Actions                                                 | epoch num | kaggle public | training | 備註                         |
