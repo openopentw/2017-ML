@@ -18,6 +18,7 @@ HW6 的分數紀錄
 | 11 | `hw6`     | 但不切validation set                          | 400       | 0.84913       | 0.9518   |                                                         |
 | 14 | `hw6_dnn` | 跟10一樣                                      | 1000      | 0.84853       | 0.8147   |                                                         |
 | 15 | `hw6`     | 加大epoch num                                 | 1000      | **0.84722**   | 0.9740   |                                                         |
+| 16 | `hw6`     | 再加大epoch num                               | 1500      | 0.84747       | 0.9733   |                                                         |
 
 ## 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
@@ -25,4 +26,4 @@ HW6 的分數紀錄
 | `hw6_dnn`        | `vali`    | no PATIENCE                                     | 看看還能不能繼續train下去 |
 | `hw6_dnn`        | `vali`    | `batch size`: 1024 → 16000<br> `PATIENCE` = 400 |                           |
 | `hw6_dnn`        | `no vali` | `batch size`: 10000 → 1024                      |                           |
-| `hw6`, `hw6_dnn` | `vali`    | normalize on rating                             | 作業第一題                |
+| `hw6`, `hw6_dnn` | `vali`    | normalize on `rating`                           | 作業第一題                |
