@@ -25,10 +25,10 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 21
+ID = 22
 print('ID = {}'.format(ID))
-EPOCHS = 1000
-EMBD_DIM = 50
+EPOCHS = 1500
+EMBD_DIM = 100
 # SPLIT_NUM = 80000
 # PATIENCE = 20
 # argv# {{{
@@ -47,41 +47,34 @@ print('Will save model to: {}'.format(model_path))
 # Before Train #
 # load train data# {{{
 train = pd.read_csv(train_path)[['UserID', 'MovieID', 'Rating']].values
-user_train  = train[:,0] - 1
-movie_train = train[:,1] - 1
-rate_train  = train[:,2]
-
-user_size   = user_train.max() + 1
-movie_size  = movie_train.max() + 1
+train[:,0] = train[:,0] - 1
+train[:,1] = train[:,1] - 1
+user_size  = train[:,0].max() + 1
+movie_size = train[:,1].max() + 1
 # }}}
 # shuffle train# {{{
 np.random.seed(42)
-indices = np.arange(user_train.size)
+indices = np.arange(train.shape[0])
 np.random.shuffle(indices)
-user_train  = user_train[indices]
-movie_train = movie_train[indices]
-rate_train  = rate_train[indices]
-# }}}
-# split vali# {{{
-# user_vali  = user_train[-SPLIT_NUM:]
-# movie_vali = movie_train[-SPLIT_NUM:]
-# rate_vali  = rate_train[-SPLIT_NUM:]
-
-# user_train  = user_train[:-SPLIT_NUM]
-# movie_train = movie_train[:-SPLIT_NUM]
-# rate_train  = rate_train[:-SPLIT_NUM]
+train = train[indices]
 # }}}
 # load test data# {{{
 test = pd.read_csv(test_path)[['UserID', 'MovieID']].values
 user_test  = test[:,0] - 1
 movie_test = test[:,1] - 1
 # }}}
-NORM = False
-# normalize on rating# {{{
-if NORM == True:
-    mean = np.mean(rate_train)
-    std  = np.std(rate_train)
-    rate_train = (rate_train - mean) / std
+USER_NORM = True
+# normalize for each user on rating# {{{
+train = train.astype(float)
+if USER_NORM == True:
+    mean = np.zeros(user_size)
+    std  = np.zeros(user_size)
+    for i in range(user_size):
+        mean[i] = np.mean(train[ train[:,0]==i , 2])
+        std[i]  = np.std (train[ train[:,0]==i , 2]) + 1e-8
+        train[train[:,0] == i, 2] = (train[train[:,0] == i, 2] - mean[i]) / std[i]
+        if i % 100 == 0:
+            print(i, end=',')
 # }}}
 
 # Keras #
@@ -110,23 +103,25 @@ def generate_model():# {{{
 model = generate_model()
 # }}}
 
-# fit# {{{
+# fit & load# {{{
 PATIENCE = 100
 earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
 checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
 
 model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
-model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=10000)
-# }}}
-# load & predict & save# {{{
+model.fit([train[:,0], train[:,1]], train[:,2], epochs=EPOCHS, batch_size=10000)
 # model.load_weights(weights_path)
+# }}}
 y_pred = model.predict([user_test, movie_test])
-if NORM == True:
-    y_pred = y_pred * std + mean
+if USER_NORM == True:
+    # y_pred = y_pred * std + mean
+    for i in range(user_size):
+        y_pred[user_test == i, 0] = y_pred[user_test == i, 0] * std[i] + mean[i]
+        if i % 100 == 0:
+            print(i, end=',')
+# save to h5 & csv# {{{
 print('Saving model to: {}'.format(model_path))
 model.save(model_path)
-# }}}
-# save to csv# {{{
 print('Saving submission to {}'.format(output_path))
 f = open(output_path, 'w')
 print('TestDataID,Rating', file=f)

@@ -24,8 +24,7 @@ HW6 的分數紀錄
 | 19 | `hw6`     | do more 500 epochs on 18                                | 1500      | 0.84746       | 0.6549   | 好像不太算overfit @@         |
 | 20 | `hw6`     | only `normalize` on rating, no `batch_normalization()`  | 1500      | 0.84973       | 0.6595   | 看來normalize的成效很爛 @@   |
 | 21 | `hw6`     | the same as 17, but `DIM` = 50, `epoch num` = 1000      | 1000      | 0.88073       |          | 作業第二題 - Part 1: DIM變小 |
-| 23 | `hw6`     | the same as 17, but `DIM` = 150                         | 1500      |               |          | 作業第二題 - Part 2: DIM變大 |
-| 22 | `hw6`     | `normalize` for each user, not for all users!           | 1500      |               |          |                              |
+| 22 | `hw6`     | `normalize` for each user, not for all users!           | 1500      | 0.85485       | 0.7049   |                              |
 
 ## 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
