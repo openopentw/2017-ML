@@ -25,11 +25,11 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 19
+ID = 20
 print('ID = {}'.format(ID))
+EPOCHS = 1500
 # SPLIT_NUM = 80000
 # EMBD_DIM = 100
-# EPOCHS = 50
 # PATIENCE = 20
 # argv# {{{
 train_path  = './data/train.csv'
@@ -91,13 +91,13 @@ def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size, EMBD_DIM)(user_input)
     user_vec = Flatten()(user_vec)
-    user_vec = BatchNormalization()(user_vec)
+    # user_vec = BatchNormalization()(user_vec)
     user_vec = Dropout(0.4)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size, EMBD_DIM)(movie_input)
     movie_vec = Flatten()(movie_vec)
-    movie_vec = BatchNormalization()(movie_vec)
+    # movie_vec = BatchNormalization()(movie_vec)
     movie_vec = Dropout(0.4)(movie_vec)
 
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
@@ -110,7 +110,6 @@ model = generate_model()
 # }}}
 
 # fit# {{{
-EPOCHS = 1500
 PATIENCE = 100
 earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
 checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
