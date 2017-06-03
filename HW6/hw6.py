@@ -25,7 +25,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 17
+ID = 18
 print('ID = {}'.format(ID))
 # SPLIT_NUM = 80000
 # EMBD_DIM = 100
@@ -76,6 +76,11 @@ test = pd.read_csv(test_path)[['UserID', 'MovieID']].values
 user_test  = test[:,0] - 1
 movie_test = test[:,1] - 1
 # }}}
+# normalize on rating# {{{
+mean = np.mean(rate_train)
+std  = np.std(rate_train)
+rate_train = (rate_train - mean) / std
+# }}}
 
 # Keras #
 def RMSE(y_true, y_pred):# {{{
@@ -104,8 +109,8 @@ def generate_model():# {{{
 model = generate_model()
 # }}}
 
-# fit & predict# {{{
-EPOCHS = 1500
+# fit# {{{
+EPOCHS = 1000
 PATIENCE = 100
 earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
 checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
@@ -116,6 +121,7 @@ model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=10000
 # load & predict & save# {{{
 # model.load_weights(weights_path)
 y_pred = model.predict([user_test, movie_test])
+y_pred = y_pred * std + mean
 print('Saving model to: {}'.format(model_path))
 model.save(model_path)
 # }}}
