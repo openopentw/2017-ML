@@ -13,16 +13,16 @@ HW6 的分數紀錄
 | 13 | `hw6_dnn` | `batch size`: 10000 → 1024                                                      | 0.85327       | 0.85443 | 0.8150   | **epoch num=800**<br>再測一次10，看看epoch數是多少                                        |
 
 ## 沒有 validation set
-| ID | .py file  | Actions                                                 | epoch num | kaggle public | training | 備註                      |
-|----|-----------|---------------------------------------------------------|-----------|---------------|----------|---------------------------|
-| 11 | `hw6`     | 但不切validation set                                    | 400       | 0.84913       | 0.9518   |                           |
-| 14 | `hw6_dnn` | 跟10一樣                                                | 1000      | 0.84853       | 0.8147   |                           |
-| 15 | `hw6`     | 加大epoch num                                           | 1000      | 0.84722       | 0.9740   |                           |
-| 16 | `hw6`     | 再加大epoch num                                         | 1500      | 0.84747       | 0.9733   | 感覺是overfit了XD         |
-| 17 | `hw6`     | ADD `batch_normalization()` on `user_vec` & `movic_vec` | 1500      | **0.84388**   | 0.9685   |                           |
-| 18 | `hw6`     | `normalize` on rating                                   | 1000      | 0.84780       | 0.6568   |                           |
-| 19 | `hw6`     | do more 500 epochs on 18                                | 1500      | 0.84746       | 0.6549   | 好像不太算overfit @@      |
-| 20 | `hw6`     | only `normalize` on rating, no `batch_normalization()`  | 1500      | 0.84973       | 0.6595   | 看來normalize的成效很爛XD |
+| ID | .py file  | Actions                                                 | epoch num | kaggle public | training | 備註                       |
+|----|-----------|---------------------------------------------------------|-----------|---------------|----------|----------------------------|
+| 11 | `hw6`     | 但不切validation set                                    | 400       | 0.84913       | 0.9518   |                            |
+| 14 | `hw6_dnn` | 跟10一樣                                                | 1000      | 0.84853       | 0.8147   |                            |
+| 15 | `hw6`     | 加大epoch num                                           | 1000      | 0.84722       | 0.9740   |                            |
+| 16 | `hw6`     | 再加大epoch num                                         | 1500      | 0.84747       | 0.9733   | 感覺是overfit了XD          |
+| 17 | `hw6`     | ADD `batch_normalization()` on `user_vec` & `movic_vec` | 1500      | **0.84388**   | 0.9685   |                            |
+| 18 | `hw6`     | `normalize` on rating                                   | 1000      | 0.84780       | 0.6568   |                            |
+| 19 | `hw6`     | do more 500 epochs on 18                                | 1500      | 0.84746       | 0.6549   | 好像不太算overfit @@       |
+| 20 | `hw6`     | only `normalize` on rating, no `batch_normalization()`  | 1500      | 0.84973       | 0.6595   | 看來normalize的成效很爛 @@ |
 
 ## 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
