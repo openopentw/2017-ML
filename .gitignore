@@ -3,6 +3,7 @@
 
 # Word Markdown temp file
 ~$*.md
+~$*.docx
 ~WR*.tmp
 
 # Windows lnk
