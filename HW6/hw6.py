@@ -25,13 +25,13 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 24
+ID = 26
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
-EMBD_DIM = 100
+EMBD_DIM = 150
 
-USER_NORM = True
+USER_NORM = False
 VALI = True
 if VALI == True:
     PATIENCE = 100
@@ -89,13 +89,13 @@ def generate_model():# {{{
     user_vec = Embedding(user_size, EMBD_DIM)(user_input)
     user_vec = Flatten()(user_vec)
     user_vec = BatchNormalization()(user_vec)
-    user_vec = Dropout(0.7)(user_vec)
+    user_vec = Dropout(0.4)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size, EMBD_DIM)(movie_input)
     movie_vec = Flatten()(movie_vec)
     movie_vec = BatchNormalization()(movie_vec)
-    movie_vec = Dropout(0.7)(movie_vec)
+    movie_vec = Dropout(0.4)(movie_vec)
 
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
 
