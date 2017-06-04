@@ -16,6 +16,7 @@ HW6 的分數紀錄
 | 26 | `hw6`     | the same as 17<br> `DIM` = 150                                                  | 0.84709       | 0.84909 | 0.8855   | 401       | **Report Problem 1**                                                |
 | 27 | `hw6`     | the same as 17<br> `DIM` = 100                                                  |               | 0.85057 | 0.8956   | 209       | **Report Problem 1**                                                |
 | 28 | `hw6`     | the same as 17<br> `DIM` = 200                                                  |               | 0.85095 | 0.8296   | 289       | **Report Problem 1**                                                |
+| 29 | `hw6`     | the same as 17<br> `DIM` = 50                                                   |               | 0.88412 | 1.1158   | 209       | **Report Problem 1**                                                |
 
 ## 沒有 validation set
 | ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                         |

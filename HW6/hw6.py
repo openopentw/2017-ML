@@ -25,11 +25,11 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 28
+ID = 29
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
-EMBD_DIM = 200
+EMBD_DIM = 50
 
 USER_NORM = False
 VALI = True
