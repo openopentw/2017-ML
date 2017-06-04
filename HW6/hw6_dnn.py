@@ -24,7 +24,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 14
+ID = 25
 print('ID = {}'.format(ID))
 # SPLIT_NUM = 80000
 # argv# {{{
@@ -104,7 +104,7 @@ def generate_model():# {{{
 model = generate_model()
 # }}}
 # fit & predict# {{{
-EPOCHS = 1000
+EPOCHS = 800
 # PATIENCE = 100
 # earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
 # checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
