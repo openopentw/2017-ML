@@ -43,3 +43,4 @@ HW6 的分數紀錄
 | `hw6_dnn`        | `vali`    | no PATIENCE                                     | 看看還能不能繼續train下去 |
 | `hw6_dnn`        | `vali`    | `batch size`: 1024 → 16000<br> `PATIENCE` = 400 |                           |
 | `hw6_dnn`        | `vali`    | normalize on `rating`                           |                           |
+| `hw6_dnn`        | `vali`    | ADD `batch_normalization()`                     |                           |
