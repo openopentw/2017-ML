@@ -13,7 +13,7 @@ HW6 的分數紀錄
 | 13 | `hw6_dnn` | `batch size`: 10000 → 1024                                                      | 0.85327       | 0.85443     | 0.8150   | 800       | 再測一次10，看看epoch數是多少                                       |
 | 23 | `hw6`     | the same as 22<br> ADD `validation set`                                         | 0.86395       | 0.84811     | 0.7021   | 420       | 看來這個方法行不通呢QQ                                              |
 | 24 | `hw6`     | dropout: 0.4 → 0.7                                                              |               | 0.85140     | 0.8533   | 472       | 結果變爛啦，dropout開太大了                                         |
-| 26 | `hw6`     | the same as 17<br> `DIM` = 150                                                  | 0.84709       | **0.84909** | 0.8855   | 401       | **Report Problem 2**<br> the best performance                       |
+**| 26 | `hw6`     | the same as 17<br> `DIM` = 150                                                  | 0.84709       | 0.84909 | 0.8855   | 401       | **Report Problem 2**<br> the best performance                       |**
 | 27 | `hw6`     | the same as 17<br> `DIM` = 100                                                  |               | 0.85057     | 0.8956   | 209       | **Report Problem 2**                                                |
 | 28 | `hw6`     | the same as 17<br> `DIM` = 200                                                  |               | 0.85095     | 0.8296   | 289       | **Report Problem 2**                                                |
 | 29 | `hw6`     | the same as 17<br> `DIM` = 50                                                   |               | 0.88412     | 1.1158   | 209       | **Report Problem 2**                                                |
