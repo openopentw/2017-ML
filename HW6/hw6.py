@@ -25,16 +25,16 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 29
+ID = 30
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
-EMBD_DIM = 50
+EMBD_DIM = 300
 
 USER_NORM = False
 VALI = True
 if VALI == True:
-    PATIENCE = 50
+    PATIENCE = 100
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
