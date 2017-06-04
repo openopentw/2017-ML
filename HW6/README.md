@@ -20,6 +20,7 @@ HW6 的分數紀錄
 | 30 | `hw6`     | the same as 17<br> `DIM` = 300                                                  |               | 0.85250     | 0.7379   | 426       | **Report Problem 2**                                                |
 | 31 | `hw6`     | the same as 26<br> ADD `normalize` on all rating                                | 0.85885       | 0.76970     | 0.6016   | 541       | **Report Problem 1**                                                |
 | 32 | `hw6`     | the same as 26<br> ADD `normalize` for each user                                | 0.86715       | 0.85010     | 0.6475   | 494       | **Report Problem 1**                                                |
+| 33 | `hw6`     | ADD `bias` on `user` & `movie`                                                  |               | 0.85498     | 0.7589   |           | **Report Problem 3**                                                |
 
 ## 沒有 validation set
 | ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                         |
@@ -41,5 +42,4 @@ HW6 的分數紀錄
 |:----------------:|:---------:|-------------------------------------------------|---------------------------|
 | `hw6_dnn`        | `vali`    | no PATIENCE                                     | 看看還能不能繼續train下去 |
 | `hw6_dnn`        | `vali`    | `batch size`: 1024 → 16000<br> `PATIENCE` = 400 |                           |
-| `hw6_dnn`        | `vali`    | normalize on `rating`                           | 作業第一題                |
-| `hw6_dnn`        | `vali`    | normalize on `rating`                           | 作業第一題                |
+| `hw6_dnn`        | `vali`    | normalize on `rating`                           |                           |

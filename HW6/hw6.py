@@ -25,14 +25,14 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 32
+ID = 33
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
 EMBD_DIM = 150
 
 NORM = False
-USER_NORM = True   # NORM or USER_NORM, only one can be True
+USER_NORM = False   # NORM or USER_NORM, only one can be True
 
 VALI = True
 if VALI == True:
@@ -103,7 +103,13 @@ def generate_model():# {{{
     movie_vec = BatchNormalization()(movie_vec)
     movie_vec = Dropout(0.4)(movie_vec)
 
+    user_bias = Embedding(user_size, 1, embeddings_initializer='zeros')(user_input)
+    user_bias = Flatten()(user_bias)
+    movie_bias = Embedding(movie_size, 1, embeddings_initializer='zeros')(movie_input)
+    movie_bias = Flatten()(movie_bias)
+
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
+    dot_vec = Add()([dot_vec, user_bias, movie_bias])
 
     model = Model([user_input, movie_input], dot_vec)
     model.summary()
