@@ -18,6 +18,7 @@ HW6 的分數紀錄
 | 28 | `hw6`     | the same as 17<br> `DIM` = 200                                                  |               | 0.85095     | 0.8296   | 289       | **Report Problem 2**                                                |
 | 29 | `hw6`     | the same as 17<br> `DIM` = 50                                                   |               | 0.88412     | 1.1158   | 209       | **Report Problem 2**                                                |
 | 30 | `hw6`     | the same as 17<br> `DIM` = 300                                                  |               | 0.85250     | 0.7379   | 426       | **Report Problem 2**                                                |
+| 31 | `hw6`     | the same as 26<br> ADD `normalize` on all rating                                | 0.85885       | 0.76970     | 0.6016   | 541       | **Report Problem 1**                                                |
 
 ## 沒有 validation set
 | ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                         |

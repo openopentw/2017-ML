@@ -25,13 +25,15 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 30
+ID = 31
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
-EMBD_DIM = 300
+EMBD_DIM = 150
 
-USER_NORM = False
+NORM = True
+USER_NORM = False   # NORM or USER_NORM, only one can be True
+
 VALI = True
 if VALI == True:
     PATIENCE = 100
@@ -67,9 +69,13 @@ test = pd.read_csv(test_path)[['UserID', 'MovieID']].values
 user_test  = test[:,0] - 1
 movie_test = test[:,1] - 1
 # }}}
-# normalize for each user on rating# {{{
+# the 2 methods of normalizing on rating# {{{
 train = train.astype(float)
-if USER_NORM == True:
+if NORM == True:
+    mean = np.mean(train[:,2])
+    std  = np.std(train[:,2])
+    train[:,2] = (train[:,2] - mean) / std
+elif USER_NORM == True:
     mean = np.zeros(user_size)
     std  = np.zeros(user_size)
     for i in range(user_size):
@@ -121,8 +127,9 @@ model.load_weights(weights_path)
 # }}}
 # predict & normalize# {{{
 y_pred = model.predict([user_test, movie_test])
-if USER_NORM == True:
-    # y_pred = y_pred * std + mean
+if NORM == True:
+    y_pred = y_pred * std + mean
+elif USER_NORM == True:
     for i in range(user_size):
         y_pred[user_test == i, 0] = y_pred[user_test == i, 0] * std[i] + mean[i]
         if i % 100 == 0:
