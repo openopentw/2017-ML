@@ -25,16 +25,17 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 33
+ID = 34
 print('ID = {}'.format(ID))
 
-EPOCHS = 1500
+EPOCHS = 800
 EMBD_DIM = 150
 
 NORM = False
 USER_NORM = False   # NORM or USER_NORM, only one can be True
+BIAS = False
 
-VALI = True
+VALI = False
 if VALI == True:
     PATIENCE = 100
 # argv# {{{
@@ -103,13 +104,14 @@ def generate_model():# {{{
     movie_vec = BatchNormalization()(movie_vec)
     movie_vec = Dropout(0.4)(movie_vec)
 
-    user_bias = Embedding(user_size, 1, embeddings_initializer='zeros')(user_input)
-    user_bias = Flatten()(user_bias)
-    movie_bias = Embedding(movie_size, 1, embeddings_initializer='zeros')(movie_input)
-    movie_bias = Flatten()(movie_bias)
-
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
-    dot_vec = Add()([dot_vec, user_bias, movie_bias])
+
+    if BIAS == True:
+        user_bias = Embedding(user_size, 1, embeddings_initializer='zeros')(user_input)
+        user_bias = Flatten()(user_bias)
+        movie_bias = Embedding(movie_size, 1, embeddings_initializer='zeros')(movie_input)
+        movie_bias = Flatten()(movie_bias)
+        dot_vec = Add()([dot_vec, user_bias, movie_bias])
 
     model = Model([user_input, movie_input], dot_vec)
     model.summary()
@@ -127,9 +129,9 @@ model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
 
 if VALI == True:
     model.fit([train[:,0], train[:,1]], train[:,2], epochs=EPOCHS, batch_size=10000, validation_split=0.1, callbacks=[checkpoint, earlystopping])
+    model.load_weights(weights_path)
 else:
     model.fit([train[:,0], train[:,1]], train[:,2], epochs=EPOCHS, batch_size=10000)
-model.load_weights(weights_path)
 # }}}
 # predict & normalize# {{{
 y_pred = model.predict([user_test, movie_test])

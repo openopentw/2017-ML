@@ -44,6 +44,7 @@ To-Do
 | 21 | `hw6`     | the same as 17<br> `DIM` = 50<br> `epoch num` = 1000      | 1000      | 0.88073       |          | 作業第二題 - Part 1: DIM變小 |
 | 22 | `hw6`     | `normalize` for each user<br> not for all users!          | 1500      | 0.85485       | 0.7049   |                              |
 | 25 | `hw6_dnn` | the same as 14<br> `batch size`: 1024                     | 800       | 0.85161       |          |                              |
+| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | **0.84387**   |          | 準備要生出大量csv囉          |
 
 ### 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
