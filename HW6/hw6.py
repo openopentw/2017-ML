@@ -25,10 +25,10 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 34
+ID = 35
 print('ID = {}'.format(ID))
 
-EPOCHS = 800
+EPOCHS = 1500
 EMBD_DIM = 150
 
 NORM = False
@@ -60,7 +60,7 @@ user_size  = train[:,0].max() + 1
 movie_size = train[:,1].max() + 1
 # }}}
 # shuffle train# {{{
-np.random.seed(42)
+np.random.seed(87)
 indices = np.arange(train.shape[0])
 np.random.shuffle(indices)
 train = train[indices]

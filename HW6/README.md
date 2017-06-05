@@ -3,7 +3,7 @@ HW6
 
 To-Do
 -----
-* 寫一個load csv進來，然後加總之後，加或乘上固定值，再輸出的py檔
+* 寫一個load csv進來，然後加總之後，加或乘上固定值(0.075?)，再輸出的py檔
 * 切validation set下來觀察：「加或乘上固定值」是不是一定會讓RMSE變好
 
 分數紀錄
@@ -44,7 +44,8 @@ To-Do
 | 21 | `hw6`     | the same as 17<br> `DIM` = 50<br> `epoch num` = 1000      | 1000      | 0.88073       |          | 作業第二題 - Part 1: DIM變小 |
 | 22 | `hw6`     | `normalize` for each user<br> not for all users!          | 1500      | 0.85485       | 0.7049   |                              |
 | 25 | `hw6_dnn` | the same as 14<br> `batch size`: 1024                     | 800       | 0.85161       |          |                              |
-| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | **0.84387**   |          | 準備要生出大量csv囉          |
+| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | **0.84387**   |          | 準備要生出大量csv囉(1)       |
+| 35 | `hw6`     | seed = 87                                                 | 1500      | **0.83987**   | 0.8850   | 準備要生出大量csv囉(2)       |
 
 ### 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
