@@ -31,21 +31,22 @@ To-Do
 | 33 | `hw6`     | ADD `bias` on `user` & `movie`                                                  |               | 0.85498     | 0.7589   |           | **Report Problem 3**                                                |
 
 ### 沒有 validation set
-| ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                         |
-|:--:|:---------:|-----------------------------------------------------------|----------:|--------------:|---------:|------------------------------|
-| 11 | `hw6`     | 但不切validation set                                      | 400       | 0.84913       | 0.9518   |                              |
-| 14 | `hw6_dnn` | 跟10一樣                                                  | 1000      | 0.84853       | 0.8147   |                              |
-| 15 | `hw6`     | 加大epoch num                                             | 1000      | 0.84722       | 0.9740   |                              |
-| 16 | `hw6`     | 再加大epoch num                                           | 1500      | 0.84747       | 0.9733   | 感覺是overfit了XD            |
-| 17 | `hw6`     | ADD `batch_normalization()` on `user_vec` & `movic_vec`   | 1500      | **0.84388**   | 0.9685   |                              |
-| 18 | `hw6`     | `normalize` on rating                                     | 1000      | 0.84780       | 0.6568   |                              |
-| 19 | `hw6`     | do more 500 epochs on 18                                  | 1500      | 0.84746       | 0.6549   | 好像不太算overfit @@         |
-| 20 | `hw6`     | only `normalize` on rating<br> no `batch_normalization()` | 1500      | 0.84973       | 0.6595   | 看來normalize的成效很爛 @@   |
-| 21 | `hw6`     | the same as 17<br> `DIM` = 50<br> `epoch num` = 1000      | 1000      | 0.88073       |          | 作業第二題 - Part 1: DIM變小 |
-| 22 | `hw6`     | `normalize` for each user<br> not for all users!          | 1500      | 0.85485       | 0.7049   |                              |
-| 25 | `hw6_dnn` | the same as 14<br> `batch size`: 1024                     | 800       | 0.85161       |          |                              |
-| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | **0.84387**   |          | 準備要生出大量csv囉(1)       |
-| 35 | `hw6`     | seed = 87                                                 | 1500      | **0.83987**   | 0.8850   | 準備要生出大量csv囉(2)       |
+| ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                                                        |
+|:--:|:---------:|-----------------------------------------------------------|----------:|--------------:|---------:|-------------------------------------------------------------|
+| 11 | `hw6`     | 但不切validation set                                      | 400       | 0.84913       | 0.9518   |                                                             |
+| 14 | `hw6_dnn` | 跟10一樣                                                  | 1000      | 0.84853       | 0.8147   |                                                             |
+| 15 | `hw6`     | 加大epoch num                                             | 1000      | 0.84722       | 0.9740   |                                                             |
+| 16 | `hw6`     | 再加大epoch num                                           | 1500      | 0.84747       | 0.9733   | 感覺是overfit了XD                                           |
+| 17 | `hw6`     | ADD `batch_normalization()` on `user_vec` & `movic_vec`   | 1500      | **0.84388**   | 0.9685   |                                                             |
+| 18 | `hw6`     | `normalize` on rating                                     | 1000      | 0.84780       | 0.6568   |                                                             |
+| 19 | `hw6`     | do more 500 epochs on 18                                  | 1500      | 0.84746       | 0.6549   | 好像不太算overfit @@                                        |
+| 20 | `hw6`     | only `normalize` on rating<br> no `batch_normalization()` | 1500      | 0.84973       | 0.6595   | 看來normalize的成效很爛 @@                                  |
+| 21 | `hw6`     | the same as 17<br> `DIM` = 50<br> `epoch num` = 1000      | 1000      | 0.88073       |          | 作業第二題 - Part 1: DIM變小                                |
+| 22 | `hw6`     | `normalize` for each user<br> not for all users!          | 1500      | 0.85485       | 0.7049   |                                                             |
+| 25 | `hw6_dnn` | the same as 14<br> `batch size`: 1024                     | 800       | 0.85161       |          |                                                             |
+| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | **0.84387**   |          | 準備要生出大量csv囉(1)                                      |
+| 35 | `hw6`     | seed = 87                                                 | 1500      | **0.83987**   | 0.8850   | 準備要生出大量csv囉(2)                                      |
+| 36 | `hw6`     | seed = 9487                                               | 2000      | **0.83993**   | 0.8841   | 準備要生出大量csv囉(3)<br> 看來再多epoch也沒用啦，overfit了 |
 
 ### 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
