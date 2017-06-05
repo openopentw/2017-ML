@@ -24,7 +24,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 25
+ID = 87
 print('ID = {}'.format(ID))
 # SPLIT_NUM = 80000
 # argv# {{{
@@ -82,11 +82,13 @@ def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size, EMBD_DIM, embeddings_initializer='random_normal')(user_input)
     user_vec = Flatten()(user_vec)
+    user_vec = BatchNormalization()(user_vec)
     user_vec = Dropout(0.7)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size, EMBD_DIM, embeddings_initializer='random_normal')(movie_input)
     movie_vec = Flatten()(movie_vec)
+    movie_vec = BatchNormalization()(movie_vec)
     movie_vec = Dropout(0.7)(movie_vec)
 
     merge_vec = Concatenate()([user_vec, movie_vec])
