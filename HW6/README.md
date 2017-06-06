@@ -3,7 +3,6 @@ HW6
 
 To-Do
 -----
-* 寫一個load csv進來，然後加總之後，加或乘上固定值(0.075?)，再輸出的py檔
 * 切validation set下來觀察：「加或乘上固定值」是不是一定會讓RMSE變好
 
 分數紀錄
@@ -30,6 +29,7 @@ To-Do
 | 32 | `hw6`     | the same as 26<br> ADD `normalize` for each user                                | 0.86715       | 0.85010     | 0.6475   | 494       | **Report Problem 1**                                                |
 | 33 | `hw6`     | ADD `bias` on `user` & `movie`                                                  |               | 0.85498     | 0.7589   |           | **Report Problem 3**                                                |
 | 38 | `hw6_dnn` | ADD `Batch_normalization()`<br> `PATIENCE` = 100                                | 0.85050       | 0.85146     | 0.6398   | 664       | 感覺還可以再降下去，可是實在跑太久了，不想跑...                     |
+| 39 | `hw6`     | the same as 26<br> ADD `Dense(1)`<br> `Dropout`: `0.4` → `0.5`                  |               | 0.85076     | 0.8168   | 91        | 看來加`Dense`沒有比較好，還是不要加好了                             |
 
 ### 沒有 validation set
 | ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                                                                              |

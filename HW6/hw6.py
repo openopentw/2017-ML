@@ -25,19 +25,20 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 37
+ID = 39
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
-EMBD_DIM = 125
+EMBD_DIM = 150
+SEED = 42
 
 NORM = False
 USER_NORM = False   # NORM or USER_NORM, only one can be True
 BIAS = False
 
-VALI = False
+VALI = True
 if VALI == True:
-    PATIENCE = 100
+    PATIENCE = 200
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
@@ -60,7 +61,7 @@ user_size  = train[:,0].max() + 1
 movie_size = train[:,1].max() + 1
 # }}}
 # shuffle train# {{{
-np.random.seed(8787)
+np.random.seed(SEED)
 indices = np.arange(train.shape[0])
 np.random.shuffle(indices)
 train = train[indices]
@@ -96,22 +97,22 @@ def generate_model():# {{{
     user_vec = Embedding(user_size, EMBD_DIM)(user_input)
     user_vec = Flatten()(user_vec)
     user_vec = BatchNormalization()(user_vec)
-    user_vec = Dropout(0.4)(user_vec)
+    user_vec = Dropout(0.5)(user_vec)
 
     movie_input = Input(shape=[1])
     movie_vec = Embedding(movie_size, EMBD_DIM)(movie_input)
     movie_vec = Flatten()(movie_vec)
     movie_vec = BatchNormalization()(movie_vec)
-    movie_vec = Dropout(0.4)(movie_vec)
+    movie_vec = Dropout(0.5)(movie_vec)
 
     dot_vec = Dot(axes=1)([user_vec, movie_vec])
-
     if BIAS == True:
         user_bias = Embedding(user_size, 1, embeddings_initializer='zeros')(user_input)
         user_bias = Flatten()(user_bias)
         movie_bias = Embedding(movie_size, 1, embeddings_initializer='zeros')(movie_input)
         movie_bias = Flatten()(movie_bias)
         dot_vec = Add()([dot_vec, user_bias, movie_bias])
+    dot_vec = Dense(1)(dot_vec)
 
     model = Model([user_input, movie_input], dot_vec)
     model.summary()
@@ -154,7 +155,11 @@ for i, pred_rate in enumerate(y_pred):
 f.close()
 # }}}
 
+'''
+# for run many times use# {{{
 score = model.evaluate([train[:,0], train[:,1], train[:,2], batch_size=1024)
 f = open('score.txt', 'w')
 print(score, file=f)
 f.close()
+# }}}
+'''
