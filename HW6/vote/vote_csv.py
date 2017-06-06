@@ -6,9 +6,8 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 3
+ID = 4
 ADD_NUM = 0.05
-ROUND_DIFF = 0.11
 # argvs# {{{
 print('ID = {}'.format(ID))
 
@@ -17,8 +16,11 @@ print('Will save output to: {}'.format(output_path))
 # }}}
 # subm list #
 subm_list = [
+    '../subm/submission_17.csv',
+    '../subm/submission_34.csv',
     '../subm/submission_35.csv',
     '../subm/submission_36.csv',
+    '../subm/submission_37.csv',
 ]
 # read csvs# {{{
 preds = np.zeros((len(subm_list), 100336))
@@ -30,13 +32,9 @@ for i, subm in enumerate(subm_list):
 y_pred = np.mean(preds, axis=0)
 y_pred += ADD_NUM
 # }}}
-# special rounds# {{{
+# clip on 1 & 5# {{{
 y_pred[y_pred < 1] = 1
 y_pred[y_pred > 5] = 5
-
-round_pred = np.round(y_pred)
-diff_pred = np.abs(round_pred - y_pred)
-y_pred[diff_pred < ROUND_DIFF] = np.round( y_pred[diff_pred < ROUND_DIFF] )
 # }}}
 # save to h5 & csv# {{{
 print('Saving submission to {}'.format(output_path))
