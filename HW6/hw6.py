@@ -25,11 +25,11 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 36
+ID = 37
 print('ID = {}'.format(ID))
 
-EPOCHS = 2000
-EMBD_DIM = 150
+EPOCHS = 1500
+EMBD_DIM = 125
 
 NORM = False
 USER_NORM = False   # NORM or USER_NORM, only one can be True
@@ -60,7 +60,7 @@ user_size  = train[:,0].max() + 1
 movie_size = train[:,1].max() + 1
 # }}}
 # shuffle train# {{{
-np.random.seed(9487)
+np.random.seed(8787)
 indices = np.arange(train.shape[0])
 np.random.shuffle(indices)
 train = train[indices]
@@ -153,3 +153,8 @@ for i, pred_rate in enumerate(y_pred):
     print('{},{}'.format(i+1, pred_rate[0]), file=f)
 f.close()
 # }}}
+
+score = model.evaluate([user_train, movie_train], rate_train, batch_size=1024)
+f = open('score.txt', 'w')
+print(score, file=f)
+f.close()
