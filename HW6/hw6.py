@@ -154,7 +154,7 @@ for i, pred_rate in enumerate(y_pred):
 f.close()
 # }}}
 
-score = model.evaluate([user_train, movie_train], rate_train, batch_size=1024)
+score = model.evaluate([train[:,0], train[:,1], train[:,2], batch_size=1024)
 f = open('score.txt', 'w')
 print(score, file=f)
 f.close()
