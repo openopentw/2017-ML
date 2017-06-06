@@ -19,14 +19,18 @@ import keras.backend as K
 from keras.models import Sequential, load_model
 from keras.models import Model
 from keras.layers import Input, Flatten, Embedding, Dropout, Dense
+from keras.layers.normalization import BatchNormalization
 from keras.layers.merge import Add, Dot, Concatenate
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 87
+ID = 38
 print('ID = {}'.format(ID))
-# SPLIT_NUM = 80000
+EMBD_DIM = 150
+BATCH_SIZE = 1024
+PATIENCE = 100
+EPOCHS = 700
 # argv# {{{
 train_path  = './data/train.csv'
 test_path   = './data/test.csv'
@@ -59,6 +63,7 @@ movie_train = movie_train[indices]
 rate_train  = rate_train[indices]
 # }}}
 # split vali# {{{
+# SPLIT_NUM = 80000
 # user_vali  = user_train[-SPLIT_NUM:]
 # movie_vali = movie_train[-SPLIT_NUM:]
 # rate_vali  = rate_train[-SPLIT_NUM:]
@@ -77,7 +82,6 @@ movie_test = test[:,1] - 1
 def RMSE(y_true, y_pred):# {{{
     return K.sqrt(K.mean(K.square(y_pred - y_true)))
 # }}}
-EMBD_DIM = 100
 def generate_model():# {{{
     user_input = Input(shape=[1])
     user_vec = Embedding(user_size, EMBD_DIM, embeddings_initializer='random_normal')(user_input)
@@ -106,14 +110,12 @@ def generate_model():# {{{
 model = generate_model()
 # }}}
 # fit & predict# {{{
-EPOCHS = 800
-# PATIENCE = 100
-# earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
-# checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
+earlystopping = EarlyStopping(monitor='val_RMSE', patience=PATIENCE, verbose=1, mode='min')
+checkpoint = ModelCheckpoint(filepath=weights_path, verbose=1, save_best_only=True, save_weights_only=True, monitor='val_RMSE', mode='min')
 
 model.compile(loss='mse', optimizer='adam', metrics=[RMSE])
-# model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=1024, validation_split=0.1, callbacks=[earlystopping, checkpoint])
-model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=1024)
+model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=BATCH_SIZE, validation_split=0.1, callbacks=[earlystopping, checkpoint])
+# model.fit([user_train, movie_train], rate_train, epochs=EPOCHS, batch_size=16000)
 # }}}
 # load & predict & save# {{{
 # model.load_weights(weights_path)
@@ -129,3 +131,8 @@ for i, pred_rate in enumerate(y_pred):
     print('{},{}'.format(i+1, pred_rate[0]), file=f)
 f.close()
 # }}}
+
+score = model.evaluate([user_train, movie_train], rate_train, batch_size=1024)
+f = open('dnn_score.txt', 'w')
+print(score, file=f)
+f.close()

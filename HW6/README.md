@@ -29,6 +29,7 @@ To-Do
 | 31 | `hw6`     | the same as 26<br> ADD `normalize` on all rating                                | 0.85885       | 0.76970     | 0.6016   | 541       | **Report Problem 1**                                                |
 | 32 | `hw6`     | the same as 26<br> ADD `normalize` for each user                                | 0.86715       | 0.85010     | 0.6475   | 494       | **Report Problem 1**                                                |
 | 33 | `hw6`     | ADD `bias` on `user` & `movie`                                                  |               | 0.85498     | 0.7589   |           | **Report Problem 3**                                                |
+| 38 | `hw6_dnn` | ADD `Batch_normalization()`<br> `PATIENCE` = 100                                | 0.85050       | 0.85146     | 0.6398   | 664       | 感覺還可以再降下去，可是實在跑太久了，不想跑...                     |
 
 ### 沒有 validation set
 | ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                                                                              |
