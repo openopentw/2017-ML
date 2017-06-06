@@ -6,7 +6,8 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 1
+ID = 2
+ADD_NUM = 0.05
 ROUND_DIFF = 0.1
 # argvs# {{{
 print('ID = {}'.format(ID))
@@ -27,16 +28,15 @@ for i, subm in enumerate(subm_list):
 # }}}
 # mean & add something# {{{
 y_pred = np.mean(preds, axis=0)
-# add something
-# TODO ...
+y_pred += ADD_NUM
 # }}}
 # special rounds# {{{
 y_pred[y_pred < 1] = 1
 y_pred[y_pred > 5] = 5
 
-round_pred = np.round(y_pred)
-diff_pred = np.abs(round_pred - y_pred)
-y_pred[diff_pred < ROUND_DIFF] = np.round( y_pred[diff_pred < ROUND_DIFF] )
+# round_pred = np.round(y_pred)
+# diff_pred = np.abs(round_pred - y_pred)
+# y_pred[diff_pred < ROUND_DIFF] = np.round( y_pred[diff_pred < ROUND_DIFF] )
 # }}}
 # save to h5 & csv# {{{
 print('Saving submission to {}'.format(output_path))
