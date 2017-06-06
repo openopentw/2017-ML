@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 4
+ID = 5
 ADD_NUM = 0.05
 # argvs# {{{
 print('ID = {}'.format(ID))
@@ -16,17 +16,17 @@ print('Will save output to: {}'.format(output_path))
 # }}}
 # subm list #
 subm_list = [
-    '../subm/submission_17.csv',
-    '../subm/submission_34.csv',
     '../subm/submission_35.csv',
     '../subm/submission_36.csv',
-    '../subm/submission_37.csv',
+    '../subm/submission_40.csv',
 ]
 # read csvs# {{{
+print('')
 preds = np.zeros((len(subm_list), 100336))
 for i, subm in enumerate(subm_list):
     print('loading csv from {}'.format(subm))
     preds[i] = pd.read_csv(subm)['Rating'].values
+print('')
 # }}}
 # mean & add something# {{{
 y_pred = np.mean(preds, axis=0)
