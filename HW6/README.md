@@ -59,6 +59,7 @@ To-Do
 |  3 | `vote_csv` | ADD `special round`<br> `round_diff = 0.11` | 35 36             | 0.83595       | 看來`special round`是沒用的東西QQ               |
 |  4 | `vote_csv` | DELETE `round_diff`                         | 17 34 35 36 37    | **0.83452**   | 看來亂加一些爛model對於score的上升是很有限的... |
 |  5 | `vote_csv` |                                             | 35 36 40          | **0.83442**   |                                                 |
+|  6 | `vote_csv` |                                             | 17 34 35 36 37 40 | **0.83414**   |                                                 |
 
 ### 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
