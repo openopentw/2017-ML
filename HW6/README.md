@@ -45,10 +45,11 @@ To-Do
 | 21 | `hw6`     | the same as 17<br> `DIM` = 50<br> `epoch num` = 1000      | 1000      | 0.88073       |          | 作業第二題 - Part 1: DIM變小                                                      |
 | 22 | `hw6`     | `normalize` for each user<br> not for all users!          | 1500      | 0.85485       | 0.7049   |                                                                                   |
 | 25 | `hw6_dnn` | the same as 14<br> `batch size`: 1024                     | 800       | 0.85161       |          |                                                                                   |
-| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | **0.84387**   |          | 準備要生出大量csv囉(1)                                                            |
-| 35 | `hw6`     | seed = 87                                                 | 1500      | **0.83987**   | 0.8850   | 準備要生出大量csv囉(2)                                                            |
-| 36 | `hw6`     | seed = 9487                                               | 2000      | **0.83993**   | 0.8841   | 準備要生出大量csv囉(3)<br> 看來再多epoch也沒用啦，overfit了                       |
-| 37 | `hw6`     | seed = 8787<br> `DIM` = 125                               | 1500      | 0.84197       | 0.9230   | 準備要生出大量csv囉(3)<br> 來binary search `DIM`看看<br> 結論：`DIM`還是150比較好 |
+| 34 | `hw6`     | the same as 26<br> `DIM` = 150                            | 800       | 0.84387       |          | 準備要生出大量csv囉(X)                                                            |
+| 35 | `hw6`     | seed = 87                                                 | 1500      | **0.83987**   | 0.8850   | 準備要生出大量csv囉(1)                                                            |
+| 36 | `hw6`     | seed = 9487                                               | 2000      | **0.83993**   | 0.8841   | 準備要生出大量csv囉(2)<br> 看來再多epoch也沒用啦，overfit了                       |
+| 37 | `hw6`     | seed = 8787<br> `DIM` = 125                               | 1500      | 0.84197       | 0.9230   | 準備要生出大量csv囉(X)<br> 來binary search `DIM`看看<br> 結論：`DIM`還是150比較好 |
+| 40 | `hw6`     | seed = 1234<br> `DIM` = 150                               | 1500      | **0.84039**   | 0.8851   | 準備要生出大量csv囉(3)<br> 來binary search `DIM`看看<br> 結論：`DIM`還是150比較好 |
 
 ### 投票紀錄
 | ID | .py file   | Actions                                     | Csvs                           | kaggle public | 備註                                            |
