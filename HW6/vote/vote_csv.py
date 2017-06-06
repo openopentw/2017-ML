@@ -6,9 +6,9 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 2
+ID = 3
 ADD_NUM = 0.05
-ROUND_DIFF = 0.1
+ROUND_DIFF = 0.11
 # argvs# {{{
 print('ID = {}'.format(ID))
 
@@ -34,9 +34,9 @@ y_pred += ADD_NUM
 y_pred[y_pred < 1] = 1
 y_pred[y_pred > 5] = 5
 
-# round_pred = np.round(y_pred)
-# diff_pred = np.abs(round_pred - y_pred)
-# y_pred[diff_pred < ROUND_DIFF] = np.round( y_pred[diff_pred < ROUND_DIFF] )
+round_pred = np.round(y_pred)
+diff_pred = np.abs(round_pred - y_pred)
+y_pred[diff_pred < ROUND_DIFF] = np.round( y_pred[diff_pred < ROUND_DIFF] )
 # }}}
 # save to h5 & csv# {{{
 print('Saving submission to {}'.format(output_path))

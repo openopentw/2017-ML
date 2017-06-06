@@ -51,10 +51,11 @@ To-Do
 | 37 | `hw6`     | seed = 8787<br> `DIM` = 125                               | 1500      | 0.84197       | 0.9230   | 準備要生出大量csv囉(3)<br> 來binary search `DIM`看看<br> 結論：`DIM`還是150比較好 |
 
 ### 投票紀錄
-| ID | .py file   | Actions                                 | Csvs      | kaggle public | 備註 |
-|:--:|:----------:|-----------------------------------------|-----------|--------------:|------|
-|  1 | `vote_csv` |                                         | 35<br> 36 | 0.83778       |      |
-|  2 | `vote_csv` | ADD `add = 0.05`<br> no `special round` | 35<br> 36 | 0.83532       |      |
+| ID | .py file   | Actions                                     | Csvs      | kaggle public | 備註                              |
+|:--:|:----------:|---------------------------------------------|-----------|--------------:|-----------------------------------|
+|  1 | `vote_csv` |                                             | 35<br> 36 | 0.83778       |                                   |
+|  2 | `vote_csv` | ADD `add = 0.05`<br> no `special round`     | 35<br> 36 | 0.83532       |                                   |
+|  3 | `vote_csv` | add `special round`<br> `round_diff = 0.11` | 35<br> 36 | 0.83595       | 看來`special round`是沒用的東西QQ |
 
 ### 可以再做的實驗
 | .py file         | vali      | Actions                                         | 備註                      |
