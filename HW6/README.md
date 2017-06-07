@@ -68,12 +68,12 @@ To-Do
 |  5 | `vote_csv` |                                             | 35 36 40                          | **0.83442**   |                                                 |
 |  6 | `vote_csv` |                                             | 17 34 35 36 37 40                 | **0.83414**   | 感覺成長的幅度都沒有很大QQ                      |
 |  7 | `vote_csv` |                                             | 35 36 37 40 41 42 43              | **0.83366**   |                                                 |
-|  8 | `vote_csv` | `ADD_NUM` = 0.04                            | 35 36 37 40 41 42 43<br> 44 45 46 | **0.83369**   |                                                 |
+|  8 | `vote_csv` | `ADD_NUM` = 0.04                            | 35 36 37 40 41<br> 42 43 44 45 46 | **0.83369**   |                                                 |
 |  9 | `vote_csv` | `ADD_NUM` = 0.07                            | 35 36 40 42 43<br> 44 45 46       | **0.83356**   | 看起來`+0.07`的結果不錯XD                       |
 
 ### 可以再做的實驗
-| .py file         | vali      | Actions                                         | 備註                      |
+| .py file         | type      | Actions                                         | 備註                      |
 |:----------------:|:---------:|-------------------------------------------------|---------------------------|
+| `train_on_train` | `vote`    | train on train                                  |                           |
 | `hw6_dnn`        | `vali`    | no PATIENCE                                     | 看看還能不能繼續train下去 |
 | `hw6_dnn`        | `vali`    | normalize on `rating`                           |                           |
-| `hw6_dnn`        | `vali`    | ADD `batch_normalization()`                     |                           |
