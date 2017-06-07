@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 7
-ADD_NUM = 0.05
+ID = 8
+ADD_NUM = 0.04
 # argvs# {{{
 print('ID = {}'.format(ID))
 
@@ -23,6 +23,9 @@ subm_list = [
     '../subm/submission_41.csv',
     '../subm/submission_42.csv',
     '../subm/submission_43.csv',
+    '../subm/submission_44.csv',
+    '../subm/submission_45.csv',
+    '../subm/submission_46.csv',
 ]
 # read csvs# {{{
 print('')
