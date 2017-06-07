@@ -14,6 +14,7 @@ elif use_device == 'cpu':
 # import# {{{
 import pandas as pd
 import numpy as np
+import sys
 # keras# {{{
 import keras.backend as K
 from keras.models import Sequential, load_model
@@ -25,12 +26,14 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 # }}}
 # }}}
 # Parameter #
-ID = 40
+# ID = 40
+ID = int(sys.argv[1])
 print('ID = {}'.format(ID))
 
 EPOCHS = 1500
-EMBD_DIM = 150
-SEED = 1234
+# EMBD_DIM = 150
+EMBD_DIM = int(sys.argv[2])
+SEED = 87
 
 NORM = False
 USER_NORM = False   # NORM or USER_NORM, only one can be True
@@ -155,11 +158,9 @@ for i, pred_rate in enumerate(y_pred):
 f.close()
 # }}}
 
-'''
 # for run many times use# {{{
-score = model.evaluate([train[:,0], train[:,1], train[:,2], batch_size=1024)
-f = open('score.txt', 'w')
+score = model.evaluate([train[:,0], train[:,1]], train[:,2], batch_size=1024)
+f = open('score.txt', 'a')
 print(score, file=f)
 f.close()
 # }}}
-'''
