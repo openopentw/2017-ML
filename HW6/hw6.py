@@ -161,6 +161,7 @@ f.close()
 # for run many times use# {{{
 score = model.evaluate([train[:,0], train[:,1]], train[:,2], batch_size=1024)
 f = open('score.txt', 'a')
+print(ID, end='\t', file=f)
 print(score, file=f)
 f.close()
 # }}}
