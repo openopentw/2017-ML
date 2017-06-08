@@ -28,16 +28,16 @@ from keras.utils import plot_model
 def RMSE(y_true, y_pred):# {{{
     return K.sqrt(K.mean(K.square(y_pred - y_true)))
 # }}}
-ID = 35
+ID = 43
 # get movie embedding# {{{
 model = load_model('./model/{}.h5'.format(ID), custom_objects={'RMSE': RMSE})
 # model = load_model('./model/daniel_model.h5', custom_objects={'rmse': RMSE})
 # model.summary()
 
 movie_emb = np.array(model.layers[3].get_weights()).squeeze()
+np.save('./embedding/movie_emb_{}.npy'.format(ID), movie_emb)
+# movie_emb = np.load('./embedding/movie_emb_{}.npy'.format(ID))
 print('movie embedding shape:', movie_emb.shape)
-np.save('movie_emb.npy', movie_emb)
-# movie_emb = np.load('movie_emb.npy')
 # }}}
 # load genres from movies.csv# {{{
 movie_path = './data/movies.csv'
@@ -82,8 +82,8 @@ vis_x = vis_data[:, 0]
 vis_y = vis_data[:, 1]
 
 cm = plt.cm.get_cmap('RdYlBu')
-sc = plt.scatter(vis_x, vis_y, c=new_c, l=new_c, cmap=cm)
-plt.legend(loc='upper right')
-# plt.colorbar(sc)
+sc = plt.scatter(vis_x, vis_y, c=new_c, cmap=cm)
+# plt.legend(loc='upper right')
+plt.colorbar(sc)
 plt.show()
 # }}}
