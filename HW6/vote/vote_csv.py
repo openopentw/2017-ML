@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 14
+ID = 15
 ADD_NUM = 0.07
 # argvs# {{{
 print('ID = {}'.format(ID))
@@ -16,35 +16,32 @@ print('Will save output to: {}'.format(output_path))
 # }}}
 # subm list #
 subm_list = [
+    '../subm/submission_11.csv',
+    '../subm/submission_14.csv',
+    '../subm/submission_15.csv',
+    '../subm/submission_16.csv',
+    '../subm/submission_17.csv',
+    '../subm/submission_18.csv',
+    '../subm/submission_19.csv',
+    '../subm/submission_20.csv',
+    '../subm/submission_21.csv',
+    '../subm/submission_22.csv',
+    '../subm/submission_25.csv',
+    '../subm/submission_34.csv',
     '../subm/submission_35.csv',
     '../subm/submission_36.csv',
-    # '../subm/submission_37.csv',
-    # '../subm/submission_40.csv',
-    # '../subm/submission_41.csv',
-    # '../subm/submission_42.csv',
-    # '../subm/submission_43.csv',
-    # '../subm/submission_44.csv',
-    # '../subm/submission_45.csv',
-    # '../subm/submission_46.csv',
-    # '../subm/submission_47.csv',
-    # '../subm/submission_48.csv',
+    '../subm/submission_37.csv',
+    '../subm/submission_40.csv',
+    '../subm/submission_41.csv',
+    '../subm/submission_42.csv',
+    '../subm/submission_43.csv',
+    '../subm/submission_44.csv',
+    '../subm/submission_45.csv',
+    '../subm/submission_46.csv',
+    '../subm/submission_47.csv',
+    '../subm/submission_48.csv',
     '../subm/submission_49.csv',
 ]
-score = np.array([# {{{
-    3987,
-    3993,
-    # 4197,
-    4039,
-    # 4149,
-    4071,
-    4004,
-    4077,
-    4058,
-    4080,
-    4115,
-    4031,
-    3997,
-])# }}}
 # read csvs# {{{
 print('')
 preds = np.zeros((len(subm_list), 100336))
@@ -55,7 +52,6 @@ print('')
 # }}}
 # mean & add something# {{{
 y_pred = np.mean(preds, axis=0)
-# y_pred = np.average(preds, axis=0, weights=10000/score)
 y_pred += ADD_NUM
 # }}}
 # clip on 1 & 5# {{{

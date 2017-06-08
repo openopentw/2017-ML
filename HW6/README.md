@@ -77,6 +77,7 @@ To-Do
 | 12 | `vote_csv` | `clip(1,5)` before ensemble                              | 35 36 40 42 43<br> 44 45 46 47 48<br> 49 | 0.83366       | 看來更糟了 = =                                  |
 | 13 | `vote_csv` | NO `clip(1,5)` before ensemble<br> `weighted` by 1/score | 35 36 40 42 43<br> 44 45 46 47 48        | 0.83368       |                                                 |
 | 14 | `vote_csv` | only 0.83\*\*\*\*                                        | 35 36 49                                 | 0.83572       |                                                 |
+| 15 | `vote_csv` | 大集合 | 11 14 15 16 17<br> 18 19 20 21 22<br> 25 34 35 36 37<br> 40 41 42 43 44<br> 45 46 47 48 49 | **0.83319**   |                                                 |
 
 ### 可以再做的實驗
 | .py file         | type      | Actions                                         | 備註                      |
