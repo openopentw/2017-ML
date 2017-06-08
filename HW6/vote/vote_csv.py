@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 12
+ID = 13
 ADD_NUM = 0.07
 # argvs# {{{
 print('ID = {}'.format(ID))
@@ -30,6 +30,21 @@ subm_list = [
     '../subm/submission_48.csv',
     '../subm/submission_49.csv',
 ]
+score = np.array([
+    3987,
+    3993,
+    # 4197,
+    4039,
+    # 4149,
+    4071,
+    4004,
+    4077,
+    4058,
+    4080,
+    4115,
+    4031,
+    3997,
+])
 # read csvs# {{{
 print('')
 preds = np.zeros((len(subm_list), 100336))
@@ -38,12 +53,8 @@ for i, subm in enumerate(subm_list):
     preds[i] = pd.read_csv(subm)['Rating'].values
 print('')
 # }}}
-# clip on 1 & 5# {{{
-preds[preds < 1] = 1
-preds[preds > 5] = 5
-# }}}
-# mean & add something# {{{
-y_pred = np.mean(preds, axis=0)
+# weighted mean & add something# {{{
+y_pred = np.average(preds, axis=0, weights=10000/score)
 y_pred += ADD_NUM
 # }}}
 # clip on 1 & 5# {{{
