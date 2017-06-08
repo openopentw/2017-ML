@@ -86,3 +86,8 @@ To-Do
 | `train_on_train` | `vote`    | train on train                                  |                           |
 | `hw6_dnn`        | `vali`    | no PATIENCE                                     | 看看還能不能繼續train下去 |
 | `hw6_dnn`        | `vali`    | normalize on `rating`                           |                           |
+
+### baseline後投票紀錄
+| ID | .py file   | Actions                                                  | Csvs                                     | kaggle public | 備註                                            |
+|:--:|:----------:|----------------------------------------------------------|------------------------------------------|--------------:|-------------------------------------------------|
+| 17 | `vote_csv` |                                                          |                                          |               |                                                 |
