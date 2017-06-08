@@ -30,9 +30,9 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 ID = int(sys.argv[1])
 print('ID = {}'.format(ID))
 
-EPOCHS = 1500
-# EMBD_DIM = 150
-EMBD_DIM = int(sys.argv[2])
+# EPOCHS = 1500
+EPOCHS = int(sys.argv[2])
+EMBD_DIM = 150
 SEED = 87
 
 NORM = False
