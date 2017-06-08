@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 # }}}
 # Parameter #
-ID = 17
-ADD_NUM = 0.07
+ID = 18
+ADD_NUM = 0
 # argvs# {{{
 print('ID = {}'.format(ID))
 
