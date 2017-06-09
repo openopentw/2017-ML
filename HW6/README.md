@@ -9,27 +9,28 @@ To-Do
 --------
 
 ### 有 validation set
-| ID | .py file  | Actions                                                                         | kaggle public | vali        | training | epoch num | 備註                                                                |
-|:--:|:---------:|---------------------------------------------------------------------------------|--------------:|------------:|---------:|----------:|---------------------------------------------------------------------|
-| 6  | `hw6_dnn` | dnn                                                                             | 0.86640       | 0.86672     | 0.7857   | 400       | 爛爛的，ㄏㄏ                                                        |
-| 7  | `hw6_dnn` | `dropout`: before → after (dense)<br> `dropout`: 0.4 → 0.5<br> ADD `dense(100)` | 0.85943       | 0.86051     | 0.8055   | 1000      | 感覺還不錯ㄎㄎ                                                      |
-| 8  | `hw6_dnn` | `dropout`: 0.5 → 0.7<br> ADD `dense(100)`<br> `PATIENCE`: 5 → 20                | 0.85841       | 0.85981     | 0.8236   | 1000      | 感覺可以把dropout再開更大一點<br> 然後patience大一點                |
-| 9  | `hw6_dnn` | ADD 2 `dropout(0.2)`<br> `PATIENCE`: 20 → 100<br> `EPOCH`: 300 → 1000           | 0.85333       | 0.85489     | 0.8171   | 1500      | 可能還可以稍微把dropout開大<br> 然後PATIENCE也可以大一點            |
-| 10 | `hw6`     | `EPOCH` = 1000<br> `PATIENCE` = 100                                             | 0.86049       | 0.86177     | 0.9944   | 1500      | model跟ID 5一樣                                                     |
-| 12 | `hw6_dnn` | `batch size`: 1024 → 10000                                                      | 0.86629       | 0.86896     | 0.8282   | 360       | batch size改大之後就爛啦<br> 可能PATIENCE也要跟著調一下才會比較好@@ |
-| 13 | `hw6_dnn` | `batch size`: 10000 → 1024                                                      | 0.85327       | 0.85443     | 0.8150   | 800       | 再測一次10，看看epoch數是多少                                       |
-| 23 | `hw6`     | the same as 22<br> ADD `validation set`                                         | 0.86395       | 0.84811     | 0.7021   | 420       | 看來這個方法行不通呢QQ                                              |
-| 24 | `hw6`     | dropout: 0.4 → 0.7                                                              |               | 0.85140     | 0.8533   | 472       | 結果變爛啦，dropout開太大了                                         |
-| 26 | `hw6`     | the same as 17<br> `DIM` = **150**                                              | 0.84709       | **0.84909** | 0.8855   | 401       | **Report Problem 2**<br> the best performance                       |
-| 27 | `hw6`     | the same as 17<br> `DIM` = 100                                                  |               | 0.85057     | 0.8956   | 209       | **Report Problem 2**                                                |
-| 28 | `hw6`     | the same as 17<br> `DIM` = 200                                                  |               | 0.85095     | 0.8296   | 289       | **Report Problem 2**                                                |
-| 29 | `hw6`     | the same as 17<br> `DIM` = 50                                                   |               | 0.88412     | 1.1158   | 209       | **Report Problem 2**                                                |
-| 30 | `hw6`     | the same as 17<br> `DIM` = 300                                                  |               | 0.85250     | 0.7379   | 426       | **Report Problem 2**                                                |
-| 31 | `hw6`     | the same as 26<br> ADD `normalize` on all rating                                | 0.85885       | 0.76970     | 0.6016   | 541       | **Report Problem 1**                                                |
-| 32 | `hw6`     | the same as 26<br> ADD `normalize` for each user                                | 0.86715       | 0.85010     | 0.6475   | 494       | **Report Problem 1**                                                |
-| 33 | `hw6`     | ADD `bias` on `user` & `movie`                                                  |               | 0.85498     | 0.7589   |           | **Report Problem 3**                                                |
-| 38 | `hw6_dnn` | ADD `Batch_normalization()`<br> `PATIENCE` = 100                                | 0.85050       | 0.85146     | 0.6398   | 664       | 感覺還可以再降下去，可是實在跑太久了，不想跑...                     |
-| 39 | `hw6`     | the same as 26<br> ADD `Dense(1)`<br> `Dropout`: `0.4` → `0.5`                  |               | 0.85076     | 0.8168   | 91        | 看來加`Dense`沒有比較好，還是不要加好了                             |
+| ID | .py file        | Actions                                                                         | kaggle public | vali        | training | epoch num | 備註                                                                |
+|:--:|:---------------:|---------------------------------------------------------------------------------|--------------:|------------:|---------:|----------:|---------------------------------------------------------------------|
+| 6  | `hw6_dnn`       | dnn                                                                             | 0.86640       | 0.86672     | 0.7857   | 400       | 爛爛的，ㄏㄏ                                                        |
+| 7  | `hw6_dnn`       | `dropout`: before → after (dense)<br> `dropout`: 0.4 → 0.5<br> ADD `dense(100)` | 0.85943       | 0.86051     | 0.8055   | 1000      | 感覺還不錯ㄎㄎ                                                      |
+| 8  | `hw6_dnn`       | `dropout`: 0.5 → 0.7<br> ADD `dense(100)`<br> `PATIENCE`: 5 → 20                | 0.85841       | 0.85981     | 0.8236   | 1000      | 感覺可以把dropout再開更大一點<br> 然後patience大一點                |
+| 9  | `hw6_dnn`       | ADD 2 `dropout(0.2)`<br> `PATIENCE`: 20 → 100<br> `EPOCH`: 300 → 1000           | 0.85333       | 0.85489     | 0.8171   | 1500      | 可能還可以稍微把dropout開大<br> 然後PATIENCE也可以大一點            |
+| 10 | `hw6`           | `EPOCH` = 1000<br> `PATIENCE` = 100                                             | 0.86049       | 0.86177     | 0.9944   | 1500      | model跟ID 5一樣                                                     |
+| 12 | `hw6_dnn`       | `batch size`: 1024 → 10000                                                      | 0.86629       | 0.86896     | 0.8282   | 360       | batch size改大之後就爛啦<br> 可能PATIENCE也要跟著調一下才會比較好@@ |
+| 13 | `hw6_dnn`       | `batch size`: 10000 → 1024                                                      | 0.85327       | 0.85443     | 0.8150   | 800       | 再測一次10，看看epoch數是多少                                       |
+| 23 | `hw6`           | the same as 22<br> ADD `validation set`                                         | 0.86395       | 0.84811     | 0.7021   | 420       | 看來這個方法行不通呢QQ                                              |
+| 24 | `hw6`           | dropout: 0.4 → 0.7                                                              |               | 0.85140     | 0.8533   | 472       | 結果變爛啦，dropout開太大了                                         |
+| 26 | `hw6`           | the same as 17<br> `DIM` = **150**                                              | 0.84709       | **0.84909** | 0.8855   | 401       | **Report Problem 2**<br> the best performance                       |
+| 27 | `hw6`           | the same as 17<br> `DIM` = 100                                                  |               | 0.85057     | 0.8956   | 209       | **Report Problem 2**                                                |
+| 28 | `hw6`           | the same as 17<br> `DIM` = 200                                                  |               | 0.85095     | 0.8296   | 289       | **Report Problem 2**                                                |
+| 29 | `hw6`           | the same as 17<br> `DIM` = 50                                                   |               | 0.88412     | 1.1158   | 209       | **Report Problem 2**                                                |
+| 30 | `hw6`           | the same as 17<br> `DIM` = 300                                                  |               | 0.85250     | 0.7379   | 426       | **Report Problem 2**                                                |
+| 31 | `hw6`           | the same as 26<br> ADD `normalize` on all rating                                | 0.85885       | 0.76970     | 0.6016   | 541       | **Report Problem 1**                                                |
+| 32 | `hw6`           | the same as 26<br> ADD `normalize` for each user                                | 0.86715       | 0.85010     | 0.6475   | 494       | **Report Problem 1**                                                |
+| 33 | `hw6`           | ADD `bias` on `user` & `movie`                                                  |               | 0.85498     | 0.7589   |           | **Report Problem 3**                                                |
+| 38 | `hw6_dnn`       | ADD `Batch_normalization()`<br> `PATIENCE` = 100                                | 0.85050       | 0.85146     | 0.6398   | 664       | 感覺還可以再降下去，可是實在跑太久了，不想跑...                     |
+| 39 | `hw6`           | the same as 26<br> ADD `Dense(1)`<br> `Dropout`: `0.4` → `0.5`                  |               | 0.85076     | 0.8168   | 91        | 看來加`Dense`沒有比較好，還是不要加好了                             |
+| 51 | `hw6_dnn_bonus` |                                                                                 |               | 0.84847     | 0.7805   | 322       |                                                                     |
 
 ### 沒有 validation set
 | ID | .py file  | Actions                                                   | epoch num | kaggle public | training | 備註                                                                              |
