@@ -22,12 +22,13 @@ from keras.utils import np_utils
 # TEST_FILE = sys.argv[1]
 # OUTPUT = sys.argv[2]
 
-TEST_FILE = "d:/data.npz"
-OUTPUT = "./new_submission.csv"
+TEST_DATA = "d:/data.npz"
+TEST_FILE = "./eigh.csv"
+OUTPUT = "./testsubmission.csv"
 # }}}
 
 # Load Data# {{{
-data = np.load(TEST_FILE)
+data = np.load(TEST_DATA)
 
 eigh = np.zeros((200, 60))
 for i in range(200):
@@ -35,7 +36,10 @@ for i in range(200):
     val, vec = np.linalg.eigh(np.cov(x.T))
     eigh[i] = val[:60]
 
-x_test = eigh.reshape(eigh.shape[0], eigh.shape[1], 1)
+np.savetxt('./eigh.csv', eigh)
+
+x_test = np.genfromtxt(TEST_FILE)
+x_test = x_test.reshape(x_test.shape[0], x_test.shape[1], 1)
 # }}}
 
 model_list_int = [

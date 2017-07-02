@@ -23,19 +23,13 @@ from keras.utils import np_utils
 # OUTPUT = sys.argv[2]
 
 TEST_FILE = "d:/data.npz"
-OUTPUT = "./new_submission.csv"
+TEST_FILE = "./eigh.csv"
+OUTPUT = "./testsubmission.csv"
 # }}}
 
 # Load Data# {{{
-data = np.load(TEST_FILE)
-
-eigh = np.zeros((200, 60))
-for i in range(200):
-    x = data[str(i)]
-    val, vec = np.linalg.eigh(np.cov(x.T))
-    eigh[i] = val[:60]
-
-x_test = eigh.reshape(eigh.shape[0], eigh.shape[1], 1)
+x_test = np.genfromtxt(TEST_FILE)
+x_test = x_test.reshape(x_test.shape[0], x_test.shape[1], 1)
 # }}}
 
 model_list_int = [
