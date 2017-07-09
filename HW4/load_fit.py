@@ -19,11 +19,11 @@ from keras.utils import np_utils
 # }}}
 
 # Argvs# {{{
-TEST_FILE = sys.argv[1]
-OUTPUT = sys.argv[2]
+# TEST_FILE = sys.argv[1]
+# OUTPUT = sys.argv[2]
 
-# TEST_FILE = "d:/data.npz"
-# OUTPUT = "./testsubmission.csv"
+TEST_FILE = "d:/data.npz"
+OUTPUT = "./new_submission.csv"
 # }}}
 
 # Load Data# {{{
@@ -39,13 +39,13 @@ x_test = eigh.reshape(eigh.shape[0], eigh.shape[1], 1)
 # }}}
 
 model_list_int = [
-        './dnn_mm_10_400.hdf5'
+        './model/dnn_mm_10_400.hdf5'
         ]
 model_list = [
-        './dnn_mm_14_200.hdf5',
-        './dnn_mm_15_300.hdf5',
-        './dnn_mm_16_300.hdf5',
-        './dnn_mm_17_250.hdf5',
+        './model/dnn_mm_14_200.hdf5',
+        './model/dnn_mm_15_300.hdf5',
+        './model/dnn_mm_16_300.hdf5',
+        './model/dnn_mm_17_250.hdf5',
         ]
 n_list = len(model_list_int) + len(model_list)
 
